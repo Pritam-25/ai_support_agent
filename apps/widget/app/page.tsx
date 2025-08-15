@@ -3,6 +3,16 @@ import { Button } from "@workspace/ui/components/button"
 import {useQuery} from "convex/react"
 import {api} from "@workspace/backend/convex/_generated/api"
 
+/**
+ * Client React page component that subscribes to the backend users query and renders a simple UI.
+ *
+ * This is a client (browser) component that uses Convex's `useQuery` to subscribe to `api.user.getManyUsers`
+ * and displays the fetched `users` as pretty-printed JSON alongside a header and a button.
+ *
+ * Note: the component does not provide explicit loading or error handling for the query result.
+ *
+ * @returns A JSX element representing the page.
+ */
 export default function Page() {
 
   const users = useQuery(api.user.getManyUsers)
