@@ -1,0 +1,3 @@
+pnpm dlx shadcn@canary init
+
+turbo dev
