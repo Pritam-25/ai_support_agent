@@ -4,6 +4,7 @@ import { ClerkProvider } from '@clerk/nextjs'
 import "@workspace/ui/globals.css"
 import { Providers } from "@/components/providers"
 import { dark } from "@clerk/themes"
+import { ReactNode } from "react"
 
 const fontSans = Geist({
   subsets: ["latin"],
@@ -18,7 +19,7 @@ const fontMono = Geist_Mono({
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode
+  children: ReactNode
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
