@@ -3,6 +3,12 @@ import { v } from "convex/values";
 
 export const getManyUsers = query({
   handler: async (ctx) => {
+
+    const identity = await ctx.auth.getUserIdentity();
+    if (identity === null) {
+      throw new Error("Not authenticated");
+    }
+
     const users = await ctx.db.query("user").collect();
     return users;
   }
@@ -11,7 +17,20 @@ export const getManyUsers = query({
 export const addUser = mutation({
   args: { name: v.string() },
   handler: async (ctx, { name }) => {
-    const user = await ctx.db.insert("user", { name });
-    return user;
+
+    const identity = await ctx.auth.getUserIdentity();
+    if (identity === null) {
+      throw new Error("Not authenticated");
+    }
+
+    const trimmed = name.trim();
+    if (trimmed.length === 0) {
+      throw new Error("Name cannot be empty");
+    }
+    if (trimmed.length > 64) {
+      throw new Error("Name too long");
+    }
+    const userId = await ctx.db.insert("user", { name: trimmed });
+    return userId;
   }
 });
