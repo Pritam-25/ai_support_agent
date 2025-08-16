@@ -23,6 +23,12 @@ export const addUser = mutation({
       throw new Error("Not authenticated");
     }
 
+    const orgId = identity.orgId as string;
+
+    if (!orgId) {
+      throw new Error("User is not part of an organization");
+    }
+
     const trimmed = name.trim();
     if (trimmed.length === 0) {
       throw new Error("Name cannot be empty");
